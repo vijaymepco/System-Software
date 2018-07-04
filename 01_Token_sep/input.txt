@@ -1,0 +1,2 @@
+copy#start#1000
+#sta#buffer
