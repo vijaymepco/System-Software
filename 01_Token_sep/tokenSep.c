@@ -64,4 +64,216 @@ int main(){
 
 	fclose(f_input);
 	// Add other files also
-}	
+	//===============================================================================//
+	FILE *fin;
+	FILE *fout;
+	FILE *fout1;
+	fout1 = fopen("test.txt", "w");
+	fout = fopen("symboltable.txt", "w");
+	char c;
+	char c1=' ';
+	char c2;
+	int line_number=0;
+	char Start[20];
+	 int val,i1,no;
+				  int len;
+				  int decimal=0;
+    			  int place;
+    			  int tempDecimal;
+    char hex[20];
+    int index, rem;
+    char HEXVALUE[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    char operant=' ';
+    char num[100];
+	int dec = 0;
+	//char lnumber[20];
+	//	int i=1
+	int lno=0,flag=0;
+    printf("Enter the starting address ");
+    gets(Start); 
+	fin = fopen("ALP.txt", "r");
+	c = fgetc(fin);
+    while (c != EOF)
+    {   lno+=1;
+    		printf("%c",c);
+        //fprintf (fout1,"%c", c);
+        if(c=='\n')
+        	{
+				flag+=1;	
+        		i1=1;
+				 line_number+=1;
+				  
+    			   place = 1;
+                  len = strlen(Start);
+                  len--;
+
+    
+    for(i=0; Start[i]!='\0'; i++)
+    {
+ 
+     
+        if(Start[i]>='0' && Start[i]<='9')
+        {
+            val = Start[i] - 48;
+        }
+        else if(Start[i]>='a' && Start[i]<='f')
+        {
+            val = Start[i] - 97 + 10;
+        }
+        else if(Start[i]>='A' && Start[i]<='F')
+        {
+            val = Start[i] - 65 + 10;
+        }
+
+        decimal += val * pow(16, len);
+        len--;
+    }
+			
+        //	decimal+=3;
+    	//	decimal=decimal-1000;
+    		decimal+=3;
+    		
+    tempDecimal = decimal;
+
+    index = 0;
+    
+    /* Decimal to hexadecimal conversion */
+    while(tempDecimal !=0)
+    {
+        rem = tempDecimal % 16;
+
+        hex[index] = HEXVALUE[rem];
+
+        tempDecimal /= 16;
+
+
+        index++;
+    }
+    hex[index] = '\0';
+
+    strrev(hex);
+    no = atoi (hex);
+    if(flag>1)
+    no=no-1000;
+    
+   /* if(hex[1]=='F' || hex[1]=='f')
+		{
+			if(hex[0]=='0')
+				hex[0]='1';
+		}
+    if(hex[1]=='F' || hex[1]=='f')
+		{
+			if(hex[0]=='1')
+				hex[0]='2';
+		}
+    if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='2')
+				hex[0]='3';
+		}
+	if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='3')
+				hex[0]='4';
+		}
+	if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='4')
+				hex[0]='5';
+		}
+	if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='5')
+				hex[0]='6';
+		}
+	if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='6')
+				hex[0]='7';
+		}
+		if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='7')
+				hex[0]='8';
+		}
+		if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='8')
+				hex[0]='9';
+		}
+		if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='9')
+				hex[0]='A';
+		}
+		if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='A' || hex[0]=='a')
+				hex[0]='B';
+		}
+		if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='b' || hex[0]=='B')
+				hex[0]='C';
+		}
+		if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='C'|| hex[0]=='c')
+				hex[0]='D';
+		}
+		if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='d'|| hex[0]=='D')
+				hex[0]='E';
+		}
+		if(hex[1]=='F' || hex=='f')
+		{
+			if(hex[0]=='E'|| hex[0]=='e')
+				hex[0]='F';
+		}
+		else*/
+		hex[0]=Start[i];
+//		if(hex[1]=='F' || hex=='f')
+//		{
+//			if(hex[0]=='F'|| hex[0]=='f')
+//				hex[0]='D';
+//		}
+
+    //len = strlen(num);
+//	for(i=0; i<len; i++){
+//		dec = dec * 10 + ( num[i] - '0' );
+    
+    
+    
+    fprintf(fout1," %s", hex);
+				
+
+     }
+     if(operant=='A' || operant=='C' || operant=='B'|| operant!=' ')
+	 	{
+	 		fprintf(fout,"%s ", hex);
+	 		fprintf(fout,"%c", operant);
+	 		fprintf(fout,"\n");
+	 		operant=' ';
+   			
+	 			
+		 }
+	if(c=='A' || c=='B' ||c=='C')
+			{
+			//	c2=fgetc(fin);
+				if(c1=='\n')
+					operant=c;
+				
+			}	
+		
+		fprintf(fout1,"%c", c);
+		
+			c1=c;
+        c = fgetc(fin);
+    }
+ 	printf("%d\n",line_number);
+ 	printf("%d\n",decimal);
+ 	printf("%s\n",hex);
+    fclose(fin);
+    fclose(fout);
+} 
